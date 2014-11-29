@@ -1,0 +1,34 @@
+\textbf{T}rusted \textbf{P}ath \textbf{E}xecution is an approach to prevent users from (un)intentionally executing malicious code, by ensuring that only code installed by a trusted user (or user belonging to a trusted group) can be executed. Another criteria for execution is that said code must not be writeable by an unprivileged user.\cite{usenixTPE}
+
+
+Linux does not implement Trusted Path Execution by default, but the feature is available as kernel modules from a few different packages (\textit{grsecurity} \cite{grsecTPE} mainly, but also stand-alone kernel modules\cite{lkmTPE}), which restricts execution of writeable binaries.
+
+With \textit{grsecurity} and TPE enabled, users belonging to a specific group are allowed to execute binaries if and only if they reside in directories that are non-writeable and owned by root. 
+
+\textit{grsecurity} implements TPE through one of four different approaches:
+\begin{enumerate}
+ \item \textit{Basic TPE}, 
+ \item \textit{TPE with inverted gid}, 
+ \item \textit{TPE with partial restrictions}
+ \item \textit{TPE with partial restrictions \textbf{and} inverted gid}
+\end{enumerate} 
+
+With basic TPE in \textit{grsecurity}, only users in a specified group (100 by default) will be restricted to executing files in root owned and write protected directories; whereas other users will be unrestricted.
+
+When \textit{grsecurity} has TPE enabled with inverted gid, the setting is the inverse of basic TPE – trusted path execution is enabled for all users \textbf{not} belonging to a specific group (100 by default).
+
+With \textit{partial restrictions}, there's an additional restriction for non-root users that would otherwise be excluded from TPE in the previous rules: Execution is allowed only for executables in root owned directories only writeable by root, and the user's own directories which aren't group or publicly writeable.
+
+The fourth set-up allows \textbf{both} TPE with inverted gid \textbf{and} partial restrictions, which means that users not belonging to a certain group will only be able to execute files in directories owned by, and writeable only by, root. Additionally, other non-root users may only execute files in directories owned by and writeable only by root, as well as own directories provided they are not world or group writeable. \cite{grsecTPE}
+
+There's also a version ported from \textit{grsecurity} and then further enhanced, but installed as stand-alone kernel modules hijacking system calls to enforce its TPE. In this regard, it operates similar to a rootkit but in a non-malicious way. 
+
+One of the additional features provided by this is \textit{hardcoded\_path}, which allows the administrator to further lock down execution to a single path regardless of ownership or permissions, and even root and trusted gids will be restricted to this path if the \textit{paranoid} option is enabled. \cite{lkmfaqTPE}
+
+More specifically (and admittedly because I am really unsure of what else could possibly be mentioned about grsec's implementation of TPE in Linux), \textit{grsecurity} implements TPE by first checking whether the user is root, in which case execution is always allowed. Second, it checks whether TPE is in whitelist (\textit{inverted gid}) or blacklist mode (\textit{basic TPE}).
+
+It then proceeds to check whether the file is in a non-root-owned, world-writable, or group-writable directory. 
+
+If both these checks are true – that is, it's enabled and the file is in any of these kinds of directories, the incident is logged and execution will not be allowed to proceed.
+
+Otherwise grsec proceeds to check whether the directory is owned by the user, and if the file is in a world-writable or group-writable directory, in which case execution will be disallowed. \cite{grsecTPEcode}

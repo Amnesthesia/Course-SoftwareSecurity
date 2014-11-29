@@ -1,0 +1,14 @@
+\section{Review}
+I found the report to be somewhat jumbled and unstructured - Schaefer begins by presenting the solution and continues to present the problems. This, for me, made it hard to get an overview, especially as countermeasures and solutions were presented as separate things (or maybe I'm just confusing the terms myself?). I believe the first use case diagram isn't actually a solution as the headline states, but a process.
+
+The report goes on to provide two examples of possible race conditions, and they are indeed possible race conditions as far as I can tell, however, they only exist based on the assumption that the ability to vote is determined upon log-in; e.g that the ballot is presented upon logging in based on whether or not the user has previously voted, and no check is performed when the ballot is actually sent. It also seems to assume that the data is stored in a database without constraints, where an existing value is simply incremented and users votes are not inserted as unique rows with the users vote. 
+
+I find these assumptions to be valid, as it would be a typical newbie mistake for somebody just learning e.g PHP, and I pity whoever made the decision to assign responsibility of a voting system to that developer. 
+
+Appropriate counter-measures are presented, and the presentation is suited for a generic voting system without being too specific, because it's such a typical newbie mistake to make for a developer.
+
+There are, however, no references - but the report makes it point somewhat clear without giving the impression that it must be supported by references since the scenario is rather generic.
+
+I give it 6 out of 10 pandas, or in other words ...
+
+\huge{\textbf{Grade:} Passed}

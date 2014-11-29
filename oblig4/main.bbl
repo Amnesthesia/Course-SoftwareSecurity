@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{javamemberfield}
+HP~Enterprise Security.
+\newblock Race condition: Singleton member field.
+\newblock
+  \url{http://www.hpenterprisesecurity.com/vulncat/en/vulncat/java/singleton_member_field_race_condition.html}.
+\newblock Accessed Sep 15, 2014.
+
+\bibitem{singlethreadmodel}
+Niki~A. Rahimi.
+\newblock Java servlet programming - 3.4 single-thread model.
+\newblock
+  \url{http://repo.hackerzvoice.net/depot_madchat/ebooks/Oreilly_Nutshells/books/javaenterprise/servlet/ch03_04.htm}.
+\newblock Accessed Sep 15, 2014.
+
+\end{thebibliography}
