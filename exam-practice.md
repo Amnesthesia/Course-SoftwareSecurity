@@ -9,6 +9,7 @@ Merged exams from past years
 3. Explain the principle of complete mediation. What is the intention of this design principle and what do you need to be aware of when implementing access checks?
 	* **Answer**:
 4. Explain the principle of fail-safe defaults. What is the intention of this design principle and what do you need to be aware of when implementing access checks?
+	* **Answer**:
 
 ---------------------------
 
